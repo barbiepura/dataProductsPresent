@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Unit Converter Presentation</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Unit Converter Presentation">
+  <meta name="author" content="Yushu Chen">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Unit Converter Presentation</h1>
+    <h2>Project - Data Product</h2>
+    <p>Yushu Chen<br/>Data</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>What it does?</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Converts units that are commonly used</h3>
+
+<ul>
+<li><strong>length</strong>: inch to cm</li>
+<li><strong>mass</strong>: lb to kg</li>
+<li><strong>volume</strong>: galllon to litre</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Converts in 2 Simple Steps</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Choose the type of units conversion </li>
+<li>type in the amount you wish to convert to</li>
+</ul>
+
+<p>The result will automatically shown in the right panel</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>User Inderface Definition</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">library(shiny)
+
+# Define UI for application that draws a histogram
+shinyUI(pageWithSidebar(
+      #Application Title
+      headerPanel(&#39;Unit Converter&#39;),
+
+      sidebarPanel(
+            radioButtons(&quot;unit&quot;, label = h3(&quot;Type of Conversion&quot;),
+                         choices = list(&quot;inch to cm&quot; = 1, &quot;lb to kg&quot; = 2, &quot;gal to L&quot; = 3), 
+                         selected = 1),
+      numericInput(&#39;num&#39;,label = h3(&#39;From value&#39;), 1)
+                  ),
+      mainPanel(
+            h3(&#39;Conversion Result&#39;),
+            verbatimTextOutput(&#39;output&#39;)
+      )
+)     
+)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Server Definition</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">library(shiny)
+
+# unit converter function
+unitCvt&lt;-function (unit, num){
+      if(unit==1){result &lt;- num*2.54}
+      else if (unit ==2){result &lt;-num*0.453592}
+      else{result&lt;-num * 3.78541}
+      print (result)
+}
+
+shinyServer(function(input, output) {
+      output$output&lt;-renderPrint({unitCvt(input$unit, input$num)})
+})
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='What it does?'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Converts in 2 Simple Steps'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='User Inderface Definition'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Server Definition'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
